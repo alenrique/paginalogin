@@ -3,11 +3,14 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+
+  const router = useRouter()
   
   const handleSubmit = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -21,13 +24,11 @@ export default function Home() {
 
       await axios.post('http://localhost:8080/api/user', data).then((res) => {
         if(res.status === 200){
-          console.log(res.data)
           alert('Usuário criado com sucesso!')
-          window.location.reload()
+          router.reload()
         }
       }).catch((error) => {
         if(error.response.status === 409){
-          console.log(error.response.data)
           alert(error.response.data.msg)
         }
         else{

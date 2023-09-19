@@ -25,7 +25,6 @@ router.post('/user', (req: Request, res: Response) => {
     else{
         const user = new User(users.length + 1, name, email, password)
         users.push(user)
-        console.log(users)
         res.status(200).json(user)
     }
 })

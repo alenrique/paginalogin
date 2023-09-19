@@ -29,12 +29,10 @@ export default function Home() {
           router.push('/home')
         }
         else{
-          console.log('Senha incorreta!')
           alert('Senha incorreta!')
         }
       }
       else{
-        console.log('Esse nome de usuário não existe!')
         alert('Esse nome de usuário não existe!')
       }
     } catch (error) {
