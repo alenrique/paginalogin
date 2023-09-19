@@ -9,7 +9,7 @@ export default function Home() {
           <p className="text-white text-lg font-medium">Login</p>
         </Link>
         <Link href={"/register"} className="w-80 h-14 flex items-center justify-center bg-gradient-to-r from-purple-600 to-red-500 rounded-[15px] transition-opacity duration-300 hover:opacity-50">
-          <p className="text-white text-lg font-medium">Sign up</p>
+          <p className="text-white text-lg font-medium">Cadastrar</p>
         </Link>
       </div>
     </div>

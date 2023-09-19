@@ -20,14 +20,20 @@ export default function Home() {
       }
 
       await axios.post('http://localhost:8080/api/user', data).then((res) => {
-        console.log(res.data)
+        if(res.status === 200){
+          console.log(res.data)
+          alert('Usuário criado com sucesso!')
+          window.location.reload()
+        }
       }).catch((error) => {
-        console.log(error)
+        if(error.response.status === 409){
+          console.log(error.response.data)
+          alert(error.response.data.msg)
+        }
+        else{
+          console.log(error)
+        }
       })
-
-      console.log(name)
-      console.log(email)
-      console.log(password)
     } catch (error) {
       console.log(error)
     }
@@ -43,7 +49,7 @@ export default function Home() {
             placeholder="Digite seu email"
             className="w-80 h-14 rounded-[15px] bg-zinc-700 p-6"
             id="email"
-            type="text"
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required

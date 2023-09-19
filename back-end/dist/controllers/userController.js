@@ -14,9 +14,20 @@ router.post('/user', (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
-    const user = new User_1.User(users.length + 1, name, email, password);
-    users.push(user);
-    console.log(users);
-    res.status(200).json(user);
+    if (users.some(obj => obj['name'] == name)) {
+        res.status(409).json({ msg: 'Esse nome de usuário já existe!' });
+    }
+    else if (users.some(obj => obj['email'] == email)) {
+        res.status(409).json({ msg: 'Esse email já existe!' });
+    }
+    else if (users.some(obj => obj['password'] == password)) {
+        res.status(409).json({ msg: 'Essa senha já existe!' });
+    }
+    else {
+        const user = new User_1.User(users.length + 1, name, email, password);
+        users.push(user);
+        console.log(users);
+        res.status(200).json(user);
+    }
 });
 exports.default = router;

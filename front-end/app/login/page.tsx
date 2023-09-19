@@ -1,18 +1,42 @@
 'use client'
 
+import axios from "axios";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+
+type Obj = {
+  id: number;
+  name: string;
+  email: string;
+  password: string
+}
 
 export default function Home() {
   const [name, setName] = useState("")
   const [password, setPassword] = useState("")
 
+  const router = useRouter()
+
   const handleSubmit = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     try {
-      console.log(name)
-      console.log(password)
+      const users = await axios.get('http://localhost:8080/api/user')
+      const user = users.data.find((obj: Obj)  => obj.name == name)
+      if(user){
+        if(user.password == password){
+          router.push('/home')
+        }
+        else{
+          console.log('Senha incorreta!')
+          alert('Senha incorreta!')
+        }
+      }
+      else{
+        console.log('Esse nome de usuário não existe!')
+        alert('Esse nome de usuário não existe!')
+      }
     } catch (error) {
       console.log(error)
     }
